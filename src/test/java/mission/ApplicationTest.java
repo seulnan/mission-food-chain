@@ -16,7 +16,8 @@ public class ApplicationTest extends TestEnvironment {
 
     @Test
     void 예외발생테스트() {
-        assertThrows(IllegalArgumentException.class, () -> run("잘못된 입력"));
+        run(List.of("잘못된입력"));
+        assertTrue(output().contains("입력 형식이 올바르지 않습니다."));
     }
 
     @Override
