@@ -1,27 +1,27 @@
 package mission.domain.fish.utils;
 
 import mission.domain.fish.FishType;
+import mission.domain.fish.exception.FishError;
+import mission.domain.fish.exception.InvalidFishException;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FishParser {
 
-    private static final Pattern pattern = Pattern.compile("\\[(.*?)-(\\d+)]");
+    public static Map<FishType, Integer> toFishTypeMap(Map<String, Integer> input) {
+        Map<FishType, Integer> result = new HashMap<>();
 
-    public static Map<FishType, Integer> parse(String input) {
-        Matcher matcher = pattern.matcher(input);
-        Map<FishType, Integer> fishCounts = new HashMap<>();
-
-        while (matcher.find()) {
-            String name = matcher.group(1).trim();
-            int count = Integer.parseInt(matcher.group(2).trim());
-
-            FishType type = FishTypeMapper.fromName(name);
-            fishCounts.put(type, fishCounts.getOrDefault(type, 0) + count);
+        for (Map.Entry<String, Integer> entry : input.entrySet()) {
+            FishType type = validateAndMap(entry.getKey());
+            result.put(type, entry.getValue());
         }
 
-        return fishCounts;
+        return result;
+    }
+
+    private static FishType validateAndMap(String name) {
+        return FishTypeMapper.map(name)
+                .orElseThrow(() -> new InvalidFishException(FishError.INVALID_FISH_NAME));
     }
 }

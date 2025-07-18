@@ -1,14 +1,16 @@
 package mission.domain.fish.utils;
 
-import java.util.Arrays;
 import mission.domain.fish.FishType;
+
+import java.util.Optional;
 
 public class FishTypeMapper {
 
-    public static FishType fromName(String name) {
-        return Arrays.stream(FishType.values())
-                .filter(fish -> fish.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 물고기 이름입니다: " + name));
+    public static Optional<FishType> map(String name) {
+        try {
+            return Optional.of(FishType.valueOf(name));
+        } catch (IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 }
