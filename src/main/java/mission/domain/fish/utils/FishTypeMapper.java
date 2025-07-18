@@ -1,5 +1,6 @@
 package mission.domain.fish.utils;
 
+import java.util.Arrays;
 import mission.domain.fish.FishType;
 
 import java.util.Optional;
@@ -7,10 +8,9 @@ import java.util.Optional;
 public class FishTypeMapper {
 
     public static Optional<FishType> map(String name) {
-        try {
-            return Optional.of(FishType.valueOf(name));
-        } catch (IllegalArgumentException e) {
-            return Optional.empty();
-        }
+        return Arrays.stream(FishType.values())
+                .filter(fish -> fish.getName().equals(name.trim()))
+                .findFirst();
     }
 }
+
