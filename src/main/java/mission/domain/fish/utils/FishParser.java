@@ -18,7 +18,7 @@ public class FishParser {
             String name = matcher.group(1).trim();
             int count = Integer.parseInt(matcher.group(2).trim());
 
-            FishType type = FishType.fromName(name);
+            FishType type = FishTypeMapper.fromName(name);
             fishCounts.put(type, fishCounts.getOrDefault(type, 0) + count);
         }
 

@@ -1,7 +1,5 @@
 package mission.domain.fish;
 
-import java.util.Arrays;
-
 public enum FishType {
     PLANKTON(1, "플랑크톤", NutritionLevel.PLANKTON),
     ANCHOVY(2, "멸치", NutritionLevel.SMALL),
@@ -38,10 +36,4 @@ public enum FishType {
         return nutritionLevel;
     }
 
-    public static FishType fromName(String name) {
-        return Arrays.stream(values())
-                .filter(fish -> fish.name.equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 물고기 이름입니다: " + name));
-    }
 }
