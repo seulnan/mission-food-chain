@@ -25,7 +25,7 @@ public class FishController implements Controller {
             pondService.initializeFish(fishCounts);
 
             PondResultDto result = pondService.simulate();
-            outputView.printSurvivalResult(result.getSurvivalDays());
+            outputView.printSurvivalResult(result.survivalDays());
 
         } catch (Exception e) {
             outputView.printError(e);
